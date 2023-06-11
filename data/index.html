@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="pt-BR" manifest="manifest.appcache">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-control" content="public">
+    <title>HORTA</title>
+    <link rel="shortcut icon" href="./src/fav.ico" type="image/x-icon">
+    <link rel="stylesheet" href="./src/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+<body>
+    <dialog id="modalSchedule" class="modal">
+
+        <div class="modal-header">
+            <div class="modal-title">
+                Horários para regar
+            </div>
+            <div id="modalScheduleCloseBtn" class="modal-close-btn"> 
+                &#10006
+            </div>
+        </div>
+        <hr class="line-header">
+        <div class="modal-body schedule">
+            <div class="form">
+                <form action="" class="form-hours">
+                    <select name="daysWeek" id="inputDayWeek">
+                        <option value="dowSunday">Domingo</option>
+                        <option value="dowMonday">Segunda</option>
+                        <option value="dowTuesday">Terça</option>
+                        <option value="dowWednesday">Quarta</option>
+                        <option value="dowThursday">Quinta</option>
+                        <option value="dowFriday">Sexta</option>
+                        <option value="dowSaturday">Sábado</option>
+
+                    </select>
+                    <input type="time" step="1" id="inputSchedule">
+                    <button type="submit" id="buttonSubmitSchedule">
+                        <span>
+                            Adicionar
+                        </span>
+                        <span style="display: none;">
+                            Adicionando
+                        </span>
+                    </button>
+                </form>
+            </div>
+            <div class="list-hours">
+            </div>
+        </div>
+    </dialog>
+    <dialog id="modalSetup" class="modal">
+
+        <div class="modal-header">
+            <div class="modal-title">
+                Ajustes
+            </div>
+            <div id="modalSetupCloseBtn" class="modal-close-btn"> 
+                &#10006
+            </div>
+        </div>
+        <hr class="line-header">
+        <div class="modal-body">
+            <div class="form">
+                <form action="" class="form-adjusts">
+                    <div class="item-adjusts">
+                        <div class="description-value">
+                            Intervalo da rega:
+                        </div>
+                        <span>
+                            <input type="number" id="inputIntervalWater" class="inputValue" disabled> 
+                        </span>
+                        <div class="action-icons">
+                            <span class="edit-icon" onclick="allowEditValue(this)">
+                                <svg height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"> <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.8 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg>
+                            </span>
+                            <span class="save-icon disabled" onclick="saveValue(this, 'intervalWater')">
+                                <svg height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"> <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 416c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/></svg>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="item-adjusts">
+                        <div class="description-value">
+                            Vazão da bomba:
+                        </div>
+                        <span>
+                            <input type="number" id="inputFlowRate" class="inputValue" disabled> 
+                        </span>
+                        <div class="action-icons">
+                            <span class="edit-icon" onclick="allowEditValue(this)">
+                                <svg height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"> <path d="M471.6 21.7c-21.9-21.9-57.3-21.9-79.2 0L362.3 51.7l97.9 97.9 30.1-30.1c21.9-21.9 21.9-57.3 0-79.2L471.6 21.7zm-299.2 220c-6.1 6.1-10.8 13.6-13.5 21.9l-29.6 88.8c-2.9 8.6-.6 18.1 5.8 24.6s15.9 8.7 24.6 5.8l88.8-29.6c8.2-2.8 15.7-7.4 21.9-13.5L437.7 172.3 339.7 74.3 172.4 241.7zM96 64C43 64 0 107 0 160V416c0 53 43 96 96 96H352c53 0 96-43 96-96V320c0-17.7-14.3-32-32-32s-32 14.3-32 32v96c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V160c0-17.7 14.3-32 32-32h96c17.7 0 32-14.3 32-32s-14.3-32-32-32H96z"/></svg>
+                            </span>
+                            <span class="save-icon disabled" onclick="saveValue(this, 'flowRate')">
+                                <svg height="18px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"> <path d="M64 32C28.7 32 0 60.7 0 96V416c0 35.3 28.7 64 64 64H384c35.3 0 64-28.7 64-64V173.3c0-17-6.7-33.3-18.7-45.3L352 50.7C340 38.7 323.7 32 306.7 32H64zm0 96c0-17.7 14.3-32 32-32H288c17.7 0 32 14.3 32 32v64c0 17.7-14.3 32-32 32H96c-17.7 0-32-14.3-32-32V128zM224 416c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/></svg>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <hr>
+            <div class="risk-area">
+                <button class="reset-button" onclick="resetJson()">
+                    <span>Resetar dados</span>
+                    <svg width="11px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M135.2 17.69C140.6 6.848 151.7 0 163.8 0H284.2C296.3 0 307.4 6.848 312.8 17.69L320 32H416C433.7 32 448 46.33 448 64C448 81.67 433.7 96 416 96H32C14.33 96 0 81.67 0 64C0 46.33 14.33 32 32 32H128L135.2 17.69zM31.1 128H416V448C416 483.3 387.3 512 352 512H95.1C60.65 512 31.1 483.3 31.1 448V128zM111.1 208V432C111.1 440.8 119.2 448 127.1 448C136.8 448 143.1 440.8 143.1 432V208C143.1 199.2 136.8 192 127.1 192C119.2 192 111.1 199.2 111.1 208zM207.1 208V432C207.1 440.8 215.2 448 223.1 448C232.8 448 240 440.8 240 432V208C240 199.2 232.8 192 223.1 192C215.2 192 207.1 199.2 207.1 208zM304 208V432C304 440.8 311.2 448 320 448C328.8 448 336 440.8 336 432V208C336 199.2 328.8 192 320 192C311.2 192 304 199.2 304 208z"/></svg>
+                </button>
+            </div>
+        </div>
+    </dialog>
+    <div class="sidebar">
+        <div class="logo"> </div>
+        <ul class="list-links">
+            <li>
+                <div class="item-link item-active">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
+                        <path d="M575.8 255.5C575.8 273.5 560.8 287.6 543.8 287.6H511.8L512.5 447.7C512.5 450.5 512.3 453.1 512 455.8V472C512 494.1 494.1 512 472 512H456C454.9 512 453.8 511.1 452.7 511.9C451.3 511.1 449.9 512 448.5 512H392C369.9 512 352 494.1 352 472V384C352 366.3 337.7 352 320 352H256C238.3 352 224 366.3 224 384V472C224 494.1 206.1 512 184 512H128.1C126.6 512 125.1 511.9 123.6 511.8C122.4 511.9 121.2 512 120 512H104C81.91 512 64 494.1 64 472V360C64 359.1 64.03 358.1 64.09 357.2V287.6H32.05C14.02 287.6 0 273.5 0 255.5C0 246.5 3.004 238.5 10.01 231.5L266.4 8.016C273.4 1.002 281.4 0 288.4 0C295.4 0 303.4 2.004 309.5 7.014L564.8 231.5C572.8 238.5 576.9 246.5 575.8 255.5L575.8 255.5z"/>
+                    </svg>
+                    <span class="link-name">Home</span>
+                </div>
+            </li>
+            <li>
+                <div class="item-link" id="setup">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M495.9 166.6C499.2 175.2 496.4 184.9 489.6 191.2L446.3 230.6C447.4 238.9 448 247.4 448 256C448 264.6 447.4 273.1 446.3 281.4L489.6 320.8C496.4 327.1 499.2 336.8 495.9 345.4C491.5 357.3 486.2 368.8 480.2 379.7L475.5 387.8C468.9 398.8 461.5 409.2 453.4 419.1C447.4 426.2 437.7 428.7 428.9 425.9L373.2 408.1C359.8 418.4 344.1 427 329.2 433.6L316.7 490.7C314.7 499.7 307.7 506.1 298.5 508.5C284.7 510.8 270.5 512 255.1 512C241.5 512 227.3 510.8 213.5 508.5C204.3 506.1 197.3 499.7 195.3 490.7L182.8 433.6C167 427 152.2 418.4 138.8 408.1L83.14 425.9C74.3 428.7 64.55 426.2 58.63 419.1C50.52 409.2 43.12 398.8 36.52 387.8L31.84 379.7C25.77 368.8 20.49 357.3 16.06 345.4C12.82 336.8 15.55 327.1 22.41 320.8L65.67 281.4C64.57 273.1 64 264.6 64 256C64 247.4 64.57 238.9 65.67 230.6L22.41 191.2C15.55 184.9 12.82 175.3 16.06 166.6C20.49 154.7 25.78 143.2 31.84 132.3L36.51 124.2C43.12 113.2 50.52 102.8 58.63 92.95C64.55 85.8 74.3 83.32 83.14 86.14L138.8 103.9C152.2 93.56 167 84.96 182.8 78.43L195.3 21.33C197.3 12.25 204.3 5.04 213.5 3.51C227.3 1.201 241.5 0 256 0C270.5 0 284.7 1.201 298.5 3.51C307.7 5.04 314.7 12.25 316.7 21.33L329.2 78.43C344.1 84.96 359.8 93.56 373.2 103.9L428.9 86.14C437.7 83.32 447.4 85.8 453.4 92.95C461.5 102.8 468.9 113.2 475.5 124.2L480.2 132.3C486.2 143.2 491.5 154.7 495.9 166.6V166.6zM256 336C300.2 336 336 300.2 336 255.1C336 211.8 300.2 175.1 256 175.1C211.8 175.1 176 211.8 176 255.1C176 300.2 211.8 336 256 336z"/>
+                    </svg>
+                    <span class="link-name">Ajustes</span>
+                </div>        
+            </li>
+            <li>
+                <div class="item-link" id="schedule">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                        <path d="M256 512C114.6 512 0 397.4 0 256S114.6 0 256 0S512 114.6 512 256s-114.6 256-256 256zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/>
+                    </svg>
+                    <span class="link-name">Agendamentos</span>
+                </div>        
+            </li>
+        </ul>
+    </div>
+    <div class="main">
+        <nav class="main-nav">
+            <div class="hour-next-water">
+                <span id="hours"></span><span id="mins"></span><span id="secs"></span>
+            </div>
+            <div class="sidebar-toggle">
+                <div class="sidebar-btn">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                        <path d="M0 96C0 78.33 14.33 64 32 64H416C433.7 64 448 78.33 448 96C448 113.7 433.7 128 416 128H32C14.33 128 0 113.7 0 96zM0 256C0 238.3 14.33 224 32 224H416C433.7 224 448 238.3 448 256C448 273.7 433.7 288 416 288H32C14.33 288 0 273.7 0 256zM416 448H32C14.33 448 0 433.7 0 416C0 398.3 14.33 384 32 384H416C433.7 384 448 398.3 448 416C448 433.7 433.7 448 416 448z"/>
+                    </svg>
+                </div>
+                <div>Dashboard</div>
+            </div>
+            <label class="switch" >
+                <input type="checkbox" id="toggle-water">
+                <span class="slider"></span>
+            </label>
+        </nav>
+        <div class="main-content">
+            <div>
+                <div class="welcome-box-wrapper">
+                    <div class="welcome-box">
+                        <div class="welcome-left">
+                            <h2>
+                                Bom dia!
+                            </h2>
+                            <p id="time"></p>
+                        </div>
+    
+                        <div class="welcome-right">
+                            <div class="welcome-right-top">
+                                <img id="iconWeather" alt="" src="http://openweathermap.org/img/wn/02d@2x.png">
+                            
+                                <div class="temperature">
+                                    <span id="temperature">
+                                        0
+                                    </span>
+                                    <span class="unity">
+                                        ºC
+                                    </span> 
+                                </div>
+                            </div>
+                            <div id="description">
+                                indeterminado
+                            </div>                        
+                        </div>
+                    </div>
+                </div>
+                <div class="boxes">
+                    <div class="box">
+                        <div class="box-top">
+                            <div class="alt-content-box">
+                                <div class="icon-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M64 95.1H0c0 123.8 100.3 224 224 224v128C224 465.6 238.4 480 255.1 480S288 465.6 288 448V320C288 196.3 187.7 95.1 64 95.1zM448 32c-84.25 0-157.4 46.5-195.8 115.3c27.75 30.12 48.25 66.88 59 107.5C424 243.1 512 147.9 512 32H448z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="right-content-box">
+                                <div>
+                                    <span class="data-box"  id="waterCount">-</span>
+                                </div>
+                                <div class="title-box">
+                                    Regas
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="box-footer">
+                            <svg width="10px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+                                <path fill="currentColor" d="M160 32V64H288V32C288 14.33 302.3 0 320 0C337.7 0 352 14.33 352 32V64H400C426.5 64 448 85.49 448 112V160H0V112C0 85.49 21.49 64 48 64H96V32C96 14.33 110.3 0 128 0C145.7 0 160 14.33 160 32zM0 192H448V464C448 490.5 426.5 512 400 512H48C21.49 512 0 490.5 0 464V192zM80 256C71.16 256 64 263.2 64 272V368C64 376.8 71.16 384 80 384H176C184.8 384 192 376.8 192 368V272C192 263.2 184.8 256 176 256H80z"/>
+                            </svg>
+                            Total
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box-top">
+                            <div class="alt-content-box">
+                                <div class="icon-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512C201.7 512 151.2 495 109.7 466.1C95.2 455.1 91.64 436 101.8 421.5C111.9 407 131.8 403.5 146.3 413.6C177.4 435.3 215.2 448 256 448C362 448 448 362 448 256C448 149.1 362 64 256 64C202.1 64 155 85.46 120.2 120.2L151 151C166.1 166.1 155.4 192 134.1 192H24C10.75 192 0 181.3 0 168V57.94C0 36.56 25.85 25.85 40.97 40.97L74.98 74.98C121.3 28.69 185.3 0 255.1 0L256 0zM256 128C269.3 128 280 138.7 280 152V246.1L344.1 311C354.3 320.4 354.3 335.6 344.1 344.1C335.6 354.3 320.4 354.3 311 344.1L239 272.1C234.5 268.5 232 262.4 232 256V152C232 138.7 242.7 128 256 128V128z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="right-content-box">
+                                <div>
+                                    <span class="data-box" id="timeCount">-</span>
+                                </div>
+                                <div class="title-box">
+                                    Tempo 
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="box-footer">
+                            <svg width="10px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="currentColor" d="M256 512C114.6 512 0 397.4 0 256C0 114.6 114.6 0 256 0C397.4 0 512 114.6 512 256C512 397.4 397.4 512 256 512zM232 256C232 264 236 271.5 242.7 275.1L338.7 339.1C349.7 347.3 364.6 344.3 371.1 333.3C379.3 322.3 376.3 307.4 365.3 300L280 243.2V120C280 106.7 269.3 96 255.1 96C242.7 96 231.1 106.7 231.1 120L232 256z"/>
+                            </svg>
+                            Minutos
+                        </div>
+                    </div>
+                    <div class="box">
+                        <div class="box-top">
+                            <div class="alt-content-box">
+                                <div class="icon-box">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                        <path d="M352 256h-38.54C297.7 242.5 277.9 232.9 256 228V180.5L224 177L192 180.5V228C170.1 233 150.3 242.6 134.5 256H16C7.125 256 0 263.1 0 272v96C0 376.9 7.125 384 16 384h92.78C129.4 421.8 173 448 224 448s94.59-26.25 115.2-64H352c17.62 0 32 14.29 32 31.91S398.4 448 416 448h64c17.62 0 32-14.31 32-31.94C512 327.7 440.4 256 352 256zM81.63 159.9L224 144.9l142.4 15C375.9 160.9 384 153.1 384 143.1V112.9c0-10-8.125-17.74-17.62-16.74L256 107.8V80C256 71.12 248.9 64 240 64h-32C199.1 64 192 71.12 192 80v27.75L81.63 96.14C72.13 95.14 64 102.9 64 112.9v30.24C64 153.1 72.13 160.9 81.63 159.9z"/>
+                                    </svg>
+                                </div>
+                            </div>
+                            <div class="right-content-box">
+                                <div>
+                                    <span class="data-box"  id="usedWater">-</span>
+                                </div>
+                                <div class="title-box">
+                                    Água
+                                </div>
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="box-footer">
+                            <svg width="10px" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+                                <path fill="currentColor" d="M168 90.74L221.1 37.66C249.2 9.539 294.8 9.539 322.9 37.66L474.3 189.1C502.5 217.2 502.5 262.8 474.3 290.9L283.9 481.4C246.4 518.9 185.6 518.9 148.1 481.4L30.63 363.9C-6.863 326.4-6.863 265.6 30.63 228.1L122.7 135.1L41.37 54.63C28.88 42.13 28.88 21.87 41.37 9.372C53.87-3.124 74.13-3.124 86.63 9.372L168 90.74zM75.88 273.4C71.69 277.6 68.9 282.6 67.52 287.1H386.7L429.1 245.7C432.2 242.5 432.2 237.5 429.1 234.3L277.7 82.91C274.5 79.79 269.5 79.79 266.3 82.91L213.3 136L262.6 185.4C275.1 197.9 275.1 218.1 262.6 230.6C250.1 243.1 229.9 243.1 217.4 230.6L168 181.3L75.88 273.4z"/>
+                            </svg>
+                            Litros
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="./src/script.js"></script>
+    <script src="./src/modal.js"></script>
+    <script src="./src/widget.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+{
+    "hours":
+    [
+
+    ],
+    "states": 
+    {
+        "humidityLevel": 0,
+        "waterLevel": 0,
+        "isWatering": 0
+    },
+    "data":
+    {
+        "timeCount": 0,
+        "waterCount": {
+            "total": 0, 
+            "sunday": 0, 
+            "monday": 0, 
+            "tuesday": 0, 
+            "wednesday": 0, 
+            "thursday": 0, 
+            "friday": 0, 
+            "saturday": 0
+        }
+    },
+    "variables": 
+    {
+        "flowRate": 4,
+        "intervalWater": 15
+    }
+}
